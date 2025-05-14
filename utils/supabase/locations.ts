@@ -12,9 +12,13 @@ export type Location = {
 export async function fetchLocations() {
   const supabase = await createClient();
 
-  const { data: locations, error } = await supabase.rpc(
-    "get_locations_and_latest_avg_price_of_dozen_eggs"
-  );
+  // const { data: locations, error } = await supabase.rpc(
+  //   "get_locations_and_latest_avg_price_of_dozen_eggs"
+  // );
+  const { data: locations, error } = await supabase
+  .from("egg_location_avg_prices")
+  .select("*");
+
 
   if (error) {
     console.error("Error fetching locations:", error);
